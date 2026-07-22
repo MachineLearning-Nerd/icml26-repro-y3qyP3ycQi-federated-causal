@@ -1,0 +1,51 @@
+# Evidence
+
+
+---
+<!-- trackio-cell
+{"type": "markdown", "id": "cell_7f31347be0bc", "created_at": "2026-07-22T04:56:19+00:00", "title": "Verification output (last 40 lines)"}
+-->
+## Verification output (last 40 lines)
+
+```
+==============================================================================
+  density-ratio weighted ATE: 2.0620 (comparable to membership)
+  -> PASS
+
+==============================================================================
+CLAIM 3 (Theorem 3): federated ATE matches centralized pooled efficiency
+==============================================================================
+  federated MSE=0.0053, centralized MSE=0.0401 (ratio=0.13)
+  -> PASS
+
+==============================================================================
+CLAIM 4 (Theorem 4): federated variance <= meta-analysis variance
+==============================================================================
+  federated var=0.0052, meta var=0.0064
+  -> PASS
+
+==============================================================================
+CLAIM 5: federated estimator is approximately unbiased
+==============================================================================
+  federated bias=0.0116, centralized bias=0.1255
+  -> PASS
+
+==============================================================================
+CLAIM 6: federated estimation improves with more sites
+==============================================================================
+  4-site mean error=0.1067, 8-site mean error=0.0706
+  -> PASS
+
+==============================================================================
+VERDICT SUMMARY
+==============================================================================
+  [PASS] c1_membership_weight
+  [PASS] c2_density_ratio
+  [PASS] c3_matches_centralized
+  [PASS] c4_lower_variance
+  [PASS] c5_bias
+  [PASS] c6_more_sites
+
+  6/6 claims verified.
+  wrote outputs/verdict.json
+```
