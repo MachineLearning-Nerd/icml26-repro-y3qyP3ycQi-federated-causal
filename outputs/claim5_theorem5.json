@@ -1,0 +1,5 @@
+{"status":"VERIFIED","run":"ea6fbba7","commit":"9617192",
+ "symbolic":"Jensen on strictly convex g(e)=1/(e(1-e)) on (0,1)",
+ "example1":{"e1":0.99,"e2":0.01,"e_global":0.5,"O1":101.01,"O2":101.01,"O_global":4.0,"bound":101.01,"lower_holds":true,"upper_holds":true},
+ "numerical":{"DGP_A_good":{"O_global":4.793,"bound":5.028}},
+ "basis":"Jensen on convex g; Example 1 reproduced exactly (O_global=4 <= 101.01)"}

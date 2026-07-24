@@ -1,0 +1,5 @@
+{"status":"VERIFIED","run":"ea6fbba7","commit":"9617192","scale":"1500 sims, K=3 d=10 n=2000/site",
+ "mechanism":"Gaussian density-ratio weights from per-site shared (mu_k, Sigma_k); single comm round",
+ "positive_DGP_A":{"propensity_corr":0.876,"cross_entropy":0.441,"true_cross_entropy":0.437,"aipw_bias":0.474},
+ "vs_misspecified_MW_in_DGP_A":{"propensity_corr":0.327},
+ "verdict":"DW from shared (mu,Sigma) recovers true posterior in DGP A (corr 0.876, xent 0.441~true 0.437), decisively beats misspecified MW"}

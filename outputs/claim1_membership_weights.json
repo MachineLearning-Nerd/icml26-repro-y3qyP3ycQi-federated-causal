@@ -1,0 +1,5 @@
+{"status":"VERIFIED","run":"ea6fbba7","commit":"9617192","scale":"1500 sims, K=3 d=10 n=2000/site",
+ "mechanism":"FedAvg multinomial logistic (Algorithm 1), T=1000 E=1 eta=0.5, shares only T*K*d floats",
+ "positive_DGP_B":{"propensity_corr":0.934,"membership_acc":0.665,"aipw_bias":-0.006,"aipw_bias_se":0.002,"cross_entropy":0.712,"true_cross_entropy":0.702},
+ "negative_DGP_A":{"propensity_corr":0.327,"cross_entropy":4.47,"aipw_bias":"large (misspecified)"},
+ "verdict":"MW via FedAvg recovers P(H=k|X) in DGP B (corr 0.934, unbiased AIPW) and fails in DGP A (corr 0.327)"}

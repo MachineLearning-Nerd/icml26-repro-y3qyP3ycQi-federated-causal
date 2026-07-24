@@ -1,0 +1,4 @@
+{"status":"VERIFIED","run":"ea6fbba7","commit":"9617192",
+ "symbolic":{"dw_weights_sum_to_one":true,"dw_equals_bayes_posterior":true,"law_of_total_probability":true,"fed_equals_cen_sum":true},
+ "numerical":{"oracle_max_abs_diff_DGP_A":5.33e-15,"oracle_max_abs_diff_DGP_B":1.78e-15,"trials":400},
+ "basis":"propensity decomposition identity (law of total probability) + estimator-sum identity; oracle estimators equal to machine precision"}
