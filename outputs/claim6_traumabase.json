@@ -1,0 +1,8 @@
+{"status":"BLOCKED","claim":"Fed-AIPW on real Traumabase cohort (K=4, 472 treated + 5531 control, 17 covariates, tranexamic acid -> mortality) matches centralized, beats meta-analysis",
+ "blocker":"restricted-access Traumabase registry; no public individual-level data; no matching public subset in paper",
+ "routes":[
+   {"route":1,"name":"public download search","result":"no data (restricted French clinical registry)"},
+   {"route":2,"name":"benchmark/R-package proxy","result":"no matching public dataset (Colnet 2024, Josse group)"},
+   {"route":3,"name":"semi-synthetic surrogate at matched scale","result":"not the claim (cannot reproduce paper's point estimates)"},
+   {"route":4,"name":"falsification attempt","result":"cannot falsify without real data under A1-A3"}],
+ "basis":"all four verification routes attempted; none can reach the claim's exact data"}

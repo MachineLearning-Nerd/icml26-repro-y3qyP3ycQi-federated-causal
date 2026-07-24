@@ -32,6 +32,12 @@ outcome noise σ=1 and propensity clipping [0.01,0.99] not pinned by paper (stan
 
 📖 **Full illustrated report:** [`reports/fedcausal/report.md`](reports/fedcausal/report.md)
 
+📒 **Tutorial notebook** (opens with the evidence, no expensive reruns):
+[`repro/notebooks/federated_causal_tutorial.py`](repro/notebooks/federated_causal_tutorial.py)
+[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/MachineLearning-Nerd/icml26-repro-y3qyP3ycQi-federated-causal/blob/master/repro/notebooks/federated_causal_tutorial.py)
+— or locally: `marimo edit repro/notebooks/federated_causal_tutorial.py`
+(`marimo check` passes).
+
 ## Reproduce
 
 ```bash
