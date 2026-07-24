@@ -9,7 +9,13 @@ Writes:
 Exits nonzero if any VERIFIED/FALSIFIED contract fails its check.
 """
 from __future__ import annotations
-import json, os, sys, time, csv, traceback
+import os
+# Cap BLAS/OpenMP threads to 1 PER WORKER *before* numpy imports, so the
+# multiprocessing Pool does not oversubscribe the CPU (64 procs x N threads).
+for _v in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS",
+           "NUMEXPR_NUM_THREADS", "VECLIB_MAXIMUM_THREADS"):
+    os.environ[_v] = "1"
+import json, sys, time, csv, traceback
 import numpy as np
 sys.path.insert(0, os.path.dirname(__file__))
 import fedcausal as fc
@@ -24,7 +30,7 @@ FAILED = False
 
 try:
     import multiprocessing as mp
-    NWORK = max(1, mp.cpu_count())
+    NWORK = max(1, min(32, mp.cpu_count()))
 except Exception:
     NWORK = 1
 
@@ -91,7 +97,15 @@ def run_claims_1_2(n_runs=1500, base_seed=1000):
             tasks.append((dgp, "good", base_seed + s))
     if NWORK > 1:
         with mp.Pool(NWORK) as pool:
-            rows = pool.map(_one_sim, tasks, chunksize=8)
+            rows = []
+            done = 0
+            t0 = time.time()
+            for r in pool.imap_unordered(_one_sim, tasks, chunksize=4):
+                rows.append(r)
+                done += 1
+                if done % 200 == 0:
+                    print(f"    ...{done}/{len(tasks)} runs ({time.time()-t0:.0f}s)", flush=True)
+            print(f"    ...{done}/{len(tasks)} runs done in {time.time()-t0:.0f}s", flush=True)
     else:
         rows = [_one_sim(t) for t in tasks]
     # write raw per-run table
