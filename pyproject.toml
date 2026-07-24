@@ -1,0 +1,15 @@
+[project]
+name = "fedcausal-repro"
+version = "0.1.0"
+description = "Reproduction of Federated Causal Inference on Multi-Site Observational Data via Propensity Score Aggregation (arXiv 2505.17961)"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=1.26",
+    "scipy>=1.11",
+    "sympy>=1.12",
+    "pandas>=2.0",
+    "matplotlib>=3.7",
+]
+
+[tool.uv]
+package = false
