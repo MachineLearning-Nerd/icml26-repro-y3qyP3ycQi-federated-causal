@@ -1,8 +1,27 @@
 {
-  "paper": "y3qyP3ycQi",
-  "tests_passed": true,
-  "publication_gate_passed": true,
-  "claims_verified": 6,
+  "paper_arxiv": "2505.17961v4",
+  "paper_openreview": "y3qyP3ycQi",
+  "status": "VERIFIED_SCOPED_WITH_LIMITATIONS",
+  "publication_gate_passed": false,
   "claims_total": 6,
-  "arxiv": "2505.17961"
+  "scoped_contracts_verified": 5,
+  "blocked_claims": ["c6_traumabase_realdata"],
+  "paper_level_claims_accepted": 0,
+  "verifier_exit_status": 0,
+  "verifier": "bash repro/run.sh -> uv run --locked python repro/src/run_all.py",
+  "evidence_run": {
+    "run_id": "ea6fbba7-0813-48dc-b94f-d5dd10c458bf",
+    "source_branch": "orx/faithful-full-scale-baseline",
+    "source_commit_before_history_normalization": "9617192",
+    "runtime_seconds": 218,
+    "backend": "HF cpu-upgrade, 32 workers, BLAS one thread per worker",
+    "scale": "K=3, d=10, n=2000/site, 1500 Monte-Carlo runs per DGP"
+  },
+  "reasons_not_passed": [
+    "C6 requires restricted Traumabase patient-level data and remains BLOCKED.",
+    "The current arXiv v4 Traumabase description is K=14, 8248 patients, 638 treated; the recorded C6 audit describes an older K=4, 6003-patient subset.",
+    "The current arXiv v4 synthetic appendix uses n_k=650 for DGP A and total n=4000 for DGP B, while this verifier uses n=2000/site for both.",
+    "Finite synthetic contracts and theorem corroboration do not establish every paper-level claim under all stated assumptions."
+  ],
+  "artifact_note": "The claim JSON files preserve the verifier's local VERIFIED/BLOCKED labels; this gate deliberately maps them to scoped evidence and does not call the paper fully reproduced."
 }

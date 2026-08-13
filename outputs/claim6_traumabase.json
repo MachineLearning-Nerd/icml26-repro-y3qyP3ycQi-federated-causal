@@ -5,4 +5,5 @@
    {"route":2,"name":"benchmark/R-package proxy","result":"no matching public dataset (Colnet 2024, Josse group)"},
    {"route":3,"name":"semi-synthetic surrogate at matched scale","result":"not the claim (cannot reproduce paper's point estimates)"},
    {"route":4,"name":"falsification attempt","result":"cannot falsify without real data under A1-A3"}],
- "basis":"all four verification routes attempted; none can reach the claim's exact data"}
+ "basis":"all four verification routes attempted; none can reach the claim's exact data",
+ "source_version_note":"This artifact preserves an older K=4 / 6003-patient descriptor. Current arXiv:2505.17961v4 describes K=14, 8248 patients, and 638 treated patients; no v4 patient-level data are present."}

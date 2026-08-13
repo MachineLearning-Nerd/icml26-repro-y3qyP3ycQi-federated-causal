@@ -21,5 +21,8 @@
     "example1": {"O_global": 4.0, "bound": 101.01},
     "numerical_DGP_A_good": {"O_global": 4.793, "bound": 5.028}},
   "c6_traumabase_realdata": {"status": "BLOCKED", "blocker": "restricted-access Traumabase registry; 4 routes attempted"},
-  "summary": "5/6 VERIFIED, 1/6 BLOCKED. Conservative projected score 10/12 (BLOCKED earns 0 unless judge credits rigorous documentation)."
+  "summary": "5/6 local contracts VERIFIED, 1/6 BLOCKED; this is scoped evidence, not a paper-level replication.",
+  "gate_status": "VERIFIED_SCOPED_WITH_LIMITATIONS",
+  "publication_gate_passed": false,
+  "source_version_boundary": "Current arXiv:2505.17961v4 uses different synthetic sample-size descriptions and a K=14, 8248-patient Traumabase description; this run uses n=2000/site and preserves an older K=4 C6 descriptor."
 }

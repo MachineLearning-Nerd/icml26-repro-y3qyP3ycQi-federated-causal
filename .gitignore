@@ -1,4 +1,6 @@
 .venv/
 __pycache__/
 *.pyc
+outputs/sim_raw.csv
+.openresearch/artifacts/
 .trackio/runs/

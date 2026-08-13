@@ -270,7 +270,7 @@ def run_claims_3_4_5():
 #  Claim 6 -- Traumabase real-data (data availability audit)                  #
 # =========================================================================== #
 def run_claim_6():
-    _banner("CLAIM 6: Traumabase cohort (K=4, 6003 patients) real-data application")
+    _banner("CLAIM 6: Traumabase real-data availability audit (recorded older descriptor)")
     routes = [
         dict(route=1, name="Public Traumabase download search",
              finding="The Traumabase registry (Mayer et al. 2020) is a restricted French "
@@ -301,7 +301,10 @@ def run_claim_6():
                       "without a data-sharing agreement; cannot reproduce the exact cohort.",
               routes=routes,
               basis="All four verification routes attempted; none can reach the claim's exact "
-                    "data. Marked BLOCKED per evidence standard.")
+                    "data. Marked BLOCKED per evidence standard.",
+              source_version_note="This artifact preserves an older K=4 / 6003-patient descriptor. "
+                    "Current arXiv:2505.17961v4 describes K=14, 8248 patients, and 638 treated "
+                    "patients; no v4 patient-level data are present.")
     VERDICT["c6_traumabase_realdata"] = c6
     _save("claim6_traumabase.json", c6)
     print(f"  C6 Traumabase real-data -> {c6['status']} (restricted-access data unavailable)", flush=True)
@@ -329,15 +332,28 @@ def main():
     for k, v in VERDICT.items():
         if v["status"] == "FALSIFIED" and "basis" in v and "FALSIFIED" not in v.get("basis", ""):
             FAILED = True
+    VERDICT["summary"] = (
+        f"{verified}/{nclaims} local contracts VERIFIED/FALSIFIED, {blocked} BLOCKED; "
+        "this is scoped evidence, not a paper-level replication."
+    )
+    VERDICT["gate_status"] = "VERIFIED_SCOPED_WITH_LIMITATIONS"
+    VERDICT["publication_gate_passed"] = False
+    VERDICT["source_version_boundary"] = (
+        "Current arXiv:2505.17961v4 uses different synthetic sample-size descriptions "
+        "and a K=14, 8248-patient Traumabase description; this run uses n=2000/site "
+        "and preserves an older K=4 C6 descriptor."
+    )
     _save("verdict.json", VERDICT)
     # EVAL.md
     with open(os.path.join(OUT, "..", "EVAL.md"), "w") as f:
-        f.write(f"# EVAL — Federated Causal Inference reproduction (arXiv:2505.17961)\n\n")
+        f.write(f"# EVAL — scoped Federated Causal Inference audit (arXiv:2505.17961v4)\n\n")
         f.write(f"Runtime {time.time()-t0:.1f}s on {NWORK} CPU cores. numpy {np.__version__}.\n\n")
         f.write("| Claim | Status |\n|---|---|\n")
         for k, v in VERDICT.items():
-            f.write(f"| {k} | {v['status']} |\n")
-        f.write(f"\n{verified}/{nclaims} resolved, {blocked} BLOCKED.\n")
+            if isinstance(v, dict) and "status" in v:
+                f.write(f"| {k} | {v['status']} |\n")
+        f.write(f"\n{verified}/{nclaims} local contracts resolved, {blocked} BLOCKED.\n")
+        f.write("Publication gate: NOT_READY. This run is scoped evidence, not a paper-level replication.\n")
     print(f"\n  wrote outputs/verdict.json, EVAL.md  ({time.time()-t0:.1f}s)", flush=True)
     sys.exit(1 if FAILED else 0)
 

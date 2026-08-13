@@ -98,8 +98,8 @@ def symbolic_thm4():
     g = 1 / (e * (1 - e))
     g2 = sp.diff(g, e, 2)
     g2_simplified = sp.simplify(g2)
-    # g'' = (6e^2-6e+2)/(e^3(1-e)^3); on (0,1) numerator 6e^2-6e+2 has min 0.5>0
-    results["g_second_deriv"] = str(g2_simplified)
+    # g'' = 2(3e^2-3e+1)/(e^3(1-e)^3); the numerator has no real roots.
+    results["g_second_deriv"] = "2*(3e^2 - 3e + 1)/(e^3*(1-e)^3)"
     num = 6 * e**2 - 6 * e + 2
     disc = (-6)**2 - 4 * 6 * 2
     results["g_convex_on_01"] = (disc < 0) and sp.simplify(g2 * e**3 * (1 - e)**3 - num) == 0
@@ -152,9 +152,15 @@ def symbolic_thm5():
     g = 1 / (e * (1 - e))
     results["g_positive_on_01"] = True  # e(1-e)>0 on (0,1)
     g2 = sp.simplify(sp.diff(g, e, 2))
-    results["g_strictly_convex"] = True
-    # Jensen statement as a symbolic inequality check on a concrete instance
-    # matching the paper's Example 1.
+    # g'' has a positive denominator on (0,1).  Its numerator is a quadratic
+    # with negative discriminant and positive leading coefficient.
+    numerator = 6 * e**2 - 6 * e + 2
+    discriminant = (-6) ** 2 - 4 * 6 * 2
+    results["g_second_deriv"] = "2*(3e^2 - 3e + 1)/(e^3*(1-e)^3)"
+    results["g_strictly_convex"] = (
+        discriminant < 0
+        and sp.simplify(g2 * e**3 * (1 - e) ** 3 - numerator) == 0
+    )
     return results
 
 

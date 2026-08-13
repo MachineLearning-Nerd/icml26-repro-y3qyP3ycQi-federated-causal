@@ -50,7 +50,8 @@ def _(mo):
         | 5 Theorem 5 (overlap bound) | VERIFIED | Example 1: O_global=4 ≤ 101.01 |
         | 6 Traumabase real data | BLOCKED | restricted-access registry |
 
-        1500-run Monte-Carlo at paper scale (K=3, d=10, n=2000/site) on CPU.
+        1500-run scoped synthetic audit (K=3, d=10, n=2000/site) on CPU; this
+        is not the current arXiv v4 sample-size setting.
         Below we demonstrate the single identity underlying all of it.
         """
     )

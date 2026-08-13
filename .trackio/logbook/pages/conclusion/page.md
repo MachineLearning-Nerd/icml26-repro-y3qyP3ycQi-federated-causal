@@ -2,67 +2,42 @@
 
 ## Result
 
-**5/6 claims VERIFIED at full paper scale; 1/6 BLOCKED** on restricted data access
-(Traumabase), not on method. Conservative projected score **10/12**; the BLOCKED
-claim earns 0 unless the judge credits the documented four-route audit.
+**Five local contracts report `VERIFIED`; C6 is `BLOCKED`.** The overall status
+is `VERIFIED_SCOPED_WITH_LIMITATIONS`, and the strict publication gate is
+**NOT PASSED**.
 
-## Visibility matrix (evaluator traversal from this logbook's index)
+| Claim | Producer | Evidence | Gate status |
+|---|---|---|---|
+| C1 | FedAvg membership path | correlation 0.934; negative control 0.327 | VERIFIED_SCOPED |
+| C2 | Gaussian density-ratio path | correlation 0.876; AIPW bias +0.474 | VERIFIED_SCOPED |
+| C3 | symbolic + oracle numerical path | max difference 5.33e−15 | VERIFIED_SCOPED |
+| C4 | convexity + variance path | ratios ≤ 1 in three scenarios | VERIFIED_SCOPED |
+| C5 | convexity + Example 1 + numerical path | 4.0 ≤ 101.01 | VERIFIED_SCOPED |
+| C6 | Traumabase access audit | restricted data and version boundary | BLOCKED |
 
-| Claim | Canonical page | Code visible | Data inline | Raw link | Checker | Control | Exact claim tested | Verdict |
-|---|---|---|---|---|---|---|---|---|
-| 1 | claims/evidence | ✓ `fedcausal.py` FedAvg | ✓ corr 0.934, bias −0.006 | `claim1_*.json` | `run_all.py` exit≠0 | DGP-A misspec | MW via FedAvg recovers P(H=k\|X) | VERIFIED |
-| 2 | claims/evidence | ✓ `fedcausal.py` Gaussian DR | ✓ corr 0.876, xent 0.441 | `claim2_*.json` | `run_all.py` exit≠0 | vs MW in DGP-A | DW from shared (μ,Σ) | VERIFIED |
-| 3 | claims/evidence | ✓ `theorems.py` | ✓ diff 5.3e-15 | `claim3_*.json` | SymPy+numeric | oracle nuisances | oracle fed = centralized | VERIFIED |
-| 4 | claims/evidence | ✓ `theorems.py` | ✓ ratios ≤1 | `claim4_*.json` | SymPy+numeric | weak-vs-good | Var_fed ≤ Var_meta | VERIFIED |
-| 5 | claims/evidence | ✓ `theorems.py` | ✓ Example 1 | `claim5_*.json` | SymPy+numeric | — | 0≤O_global≤Σρ_k O_k | VERIFIED |
-| 6 | claims/evidence | ✓ pipeline | ✓ 4 routes | `claim6_*.json` | — | — | Traumabase cohort | BLOCKED |
+## Why the gate is not passed
 
-## Score forecast
+- C6 cannot be reproduced without authorized clinical data.
+- Current arXiv v4 describes a 14-center, 8,248-patient Traumabase cohort;
+  the checked-in C6 descriptor is an older four-center subset.
+- Current v4 synthetic sample-size descriptions differ from the local verifier’s
+  `n=2000/site` setting.
+- Finite checks and symbolic ingredients are valuable evidence but are not a
+  full paper-level proof or replication.
 
-| Claim | Current (live) | Possible | Confidence | Basis / remaining risk |
-|---|---|---|---|---|
-| 1 | 1/2 (toy) | 2/2 | HIGH | full-scale FedAvg + clean negative control |
-| 2 | 0/2 | 2/2 | HIGH | genuine Gaussian density-ratio, beats misspecified MW |
-| 3 | 1/2 (toy) | 2/2 | HIGH | symbolic identity + machine-precision equality |
-| 4 | 1/2 (toy) | 2/2 | HIGH | symbolic Jensen + multi-scenario variance ratio |
-| 5 | 0/2 | 2/2 | HIGH | Example 1 exact + symbolic Jensen |
-| 6 | 1/2 (toy) | 0/2 | — | BLOCKED: Traumabase data not publicly available |
+The machine-readable decision is [`publication_gate.json`](../../../../publication_gate.json).
+The source/version details are in [`SOURCE_MANIFEST.md`](../../../../SOURCE_MANIFEST.md).
 
-Conservative projected total: **10/12**. Best-supported possible: **10/12**
-(claim 6 remains BLOCKED). Only the live judge can change the score.
+## Reproduction boundary
 
-## Limitations & deviations (honest)
+The repository’s current code is the publication surface. The old toy verifier
+is under `repro/legacy/` and is explicitly excluded. The old `orx/*` branch was
+an ancestor of the publication tree and is removed after its role was recorded
+in [`BRANCH_AUDIT.md`](../../../../BRANCH_AUDIT.md).
 
-- Outcome noise σ=1 and propensity clipping [0.01,0.99] are not pinned by the paper
-  (standard choices); oracle theorem checks are unclipped.
-- Sample size n=2000/site from Appendix Tables (main text says 500 — 4× discrepancy;
-  we used the larger value and flagged it).
-- Theorem "verification" combines an independently reconstructed **symbolic**
-  derivation (law of total probability, Jensen, total variance) with finite
-  Monte-Carlo corroboration; the finite experiments alone are scoped corroboration.
-- Claim 6 (Traumabase) cannot be reached without the restricted registry.
+## Citation and thanks
 
-## Compute cost
-
-Local CPU (Apple M-series): figure generation ~60 s, ≤1 core. HF cpu-upgrade: the
-authoritative 1500-run verification, 218 s on 32 vCPUs (BLAS pinned to 1 thread/worker).
-$0 GPU spend.
-
----
-<!-- trackio-cell
-{"type": "markdown", "id": "cell_4c1f143939db", "created_at": "2026-07-22T04:56:25+00:00", "title": "Historical rejected baseline (4/12)"}
--->
-## Historical rejected baseline (4/12) — superseded
-
-> Original (rejected) conclusion, preserved unchanged. Current conclusion is above.
-
-## Executive summary
-6/6 claim checks PASS for **Federated Causal Inference on Multi-Site Observational Data** (`y3qyP3ycQi`). Clean-room numpy verification on CPU (<1 min, <100 MB). Each claim verified at full scale with an independent mechanism and negative controls; no toy/proxy results.
-
-| | This reproduction | Full replication |
-|---|---|---|
-| Scope | all claims, clean-room | same |
-| Hardware | CPU (numpy) | same |
-| Time | <1 min | same |
-| Cost | $0 | $0 |
-| Outcome | verified | — |
+Please cite Khellaf, Bellet, and Josse, [arXiv:2505.17961](https://arxiv.org/abs/2505.17961).
+Thank you to the authors for making the method and assumptions sufficiently
+clear for independent auditing. This work is independent and not author
+reviewed or endorsed.

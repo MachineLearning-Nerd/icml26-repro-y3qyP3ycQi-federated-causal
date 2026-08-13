@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "title": "Repro - Federated Causal Inference on Multi-Site Observational Data",
+  "title": "Federated Causal Inference - Scoped Audit",
   "emoji": "🎯",
   "space_id": null,
   "paper": null,
@@ -11,7 +11,7 @@
   "updated_at": "2026-07-22T04:56:25+00:00",
   "root": {
     "slug": "index",
-    "title": "Repro - Federated Causal Inference on Multi-Site Observational Data",
+    "title": "Federated Causal Inference - Scoped Audit",
     "file": "pages/index.md",
     "children": [
       {

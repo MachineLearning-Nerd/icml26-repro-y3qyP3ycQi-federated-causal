@@ -2,50 +2,32 @@
 
 ## Paper
 
-Khellaf, Bellet & Josse, *Federated Causal Inference from Multi-Site Observational
-Data via Propensity Score Aggregation* (arXiv:2505.17961). The ATE is estimated
-across K sites that cannot pool patient-level data by decomposing the **global
-propensity** into a weighted combination of **local propensities**:
+Rémi Khellaf, Aurélien Bellet, and Julie Josse, *Federated Causal Inference
+from Multi-Site Observational Data via Propensity Score Aggregation*,
+[arXiv:2505.17961v4](https://arxiv.org/abs/2505.17961), OpenReview `y3qyP3ycQi`.
 
-> e(X) = Σ_k ω_k(X) · e_k(X)
+The paper estimates an ATE across sites that cannot pool patient-level data. It
+decomposes the global propensity score as
 
-Two weighting schemes: **Membership Weights** (ω_k = P(H=k|X), federated multinomial
-logistic via FedAvg) and **Density-Ratio Weights** (ω_k = ρ_k f_k(X)/f(X), each site
-shares only Gaussian μ̂_k, Σ̂_k). These feed Fed-IPW and doubly-robust Fed-AIPW.
+> `e(X) = Σ_k ω_k(X) · e_k(X)`
 
-## What this reproduction does
+using Membership Weights (`ω_k=P(H=k|X)`) or Density-Ratio Weights
+(`ω_k=ρ_k f_k(X)/f(X)`), then constructs federated IPW/AIPW estimators.
 
-Clean-room implementation of the exact DGPs (Appendix C, Tables 1-3: d=10, K=3,
-n=2000/site), FedAvg (Algorithm 1), Gaussian density-ratio weights, centralized and
-meta-analysis estimators, **plus SymPy symbolic derivations** for the three theorems.
-1500 Monte-Carlo runs at paper scale on CPU, with the paper's own well-specified /
-misspecified DGPs serving as **built-in negative controls**.
+## What this audit does
 
-**Source audit:** retrieved 2026-07-24 from https://ar5iv.labs.arxiv.org/html/2505.17961,
-SHA-256 `e2e587cc90b99f6feefb848ad92aad62dde2cee1d933329e3a47036d586d11a2`.
+The clean-room implementation exercises the two weighting mechanisms, the
+oracle estimator identity, variance comparisons, and the overlap example. It
+uses the code in `repro/src/` and the recorded run `ea6fbba7`.
 
-## What changed vs the rejected baseline (4/12)
+The local verifier uses `K=3`, `d=10`, `n=2000/site`, and 1,500 Monte Carlo
+runs per DGP. Current v4 describes DGP A with `n_k=650` and DGP B with total
+`n=4000`; this difference is now explicit, so the run is called a scoped
+synthetic audit rather than “paper scale.”
 
-The previous baseline (Space revision `a7eb5704`) used 200-patient synthetic data,
-did not implement density-ratio estimation (it re-used the membership-weight number
-for claim 2), misidentified claim 5 (tested bias instead of the overlap bound), and
-tested the theorems with loose 8-trial numerical heuristics. **That historical
-logbook is preserved verbatim below on each page under "Historical rejected baseline"
-and is superseded by the full-scale evidence above.** See [Verification run](#/verification-run).
+Current v4 also describes Traumabase as 14 centers, 8,248 patients, and 638
+treated patients. The checked-in C6 artifact retains an older four-center
+descriptor and has no patient-level data. C6 is therefore `BLOCKED`.
 
----
-<!-- trackio-cell
-{"type": "markdown", "id": "cell_b517ba2ca285", "created_at": "2026-07-22T04:56:17+00:00", "title": "Historical rejected baseline (4/12)"}
--->
-## Historical rejected baseline (4/12) — superseded
-
-> The content below is the **original rejected** overview, preserved unchanged for
-> provenance. It is NOT the current evidence. Current evidence is above and on the
-> [Claims](#/claims) / [Evidence](#/evidence) pages.
-
-# Federated Causal Inference on Multi-Site Observational Data
-
-OpenReview: https://openreview.net/forum?id=y3qyP3ycQi
-arXiv: https://arxiv.org/abs/2505.17961
-
-Clean-room CPU reproduction. 6 anchored claims (12 possible points). All claims verified at full scale.
+See [`SOURCE_MANIFEST.md`](https://github.com/MachineLearning-Nerd/icml26-federated-causal-inference/blob/main/SOURCE_MANIFEST.md)
+for the full boundary audit.
